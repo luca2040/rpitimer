@@ -1,0 +1,32 @@
+[
+    {
+        "IDX": 0,
+        "PIN": 24,
+        "DESCRIPTION": "10A relay 0.1"
+    },
+    {
+        "IDX": 1,
+        "PIN": 22,
+        "DESCRIPTION": "10A relay 0.2"
+    },
+    {
+        "IDX": 2,
+        "PIN": 27,
+        "DESCRIPTION": "10A relay 0.3"
+    },
+    {
+        "IDX": 3,
+        "PIN": 4,
+        "DESCRIPTION": "10A relay 0.4"
+    },
+    {
+        "IDX": 4,
+        "PIN": 25,
+        "DESCRIPTION": "16A relay 1.1"
+    },
+    {
+        "IDX": 5,
+        "PIN": 26,
+        "DESCRIPTION": "16A relay 1.2"
+    }
+]

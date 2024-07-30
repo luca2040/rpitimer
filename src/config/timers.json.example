@@ -1,0 +1,28 @@
+[
+    {
+        "DEVICE_IDX": 0,
+        "NAME": "Device 1"
+    },
+    {
+        "DEVICE_IDX": 1,
+        "NAME": "Device 2"
+    },
+    {},
+    {
+        "DEVICE_IDX": 2,
+        "NAME": "Device 3"
+    },
+    {
+        "DEVICE_IDX": 3,
+        "NAME": "Device 4"
+    },
+    {
+        "DEVICE_IDX": 4,
+        "NAME": "Device 5"
+    },
+    {},
+    {
+        "DEVICE_IDX": 5,
+        "NAME": "Device 6"
+    }
+]
