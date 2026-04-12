@@ -1,11 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestione Timer</title>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='resources/favicon.ico') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='resources/style.css') }}"
+    />
   </head>
   <body>
     <div class="container">
@@ -27,11 +34,14 @@
         </div>
         <div class="modal-controls">
           <button id="add-time" class="btn-edit">Aggiungi Tempo</button>
-          <button id="confirm-changes" class="btn-toggle btn-confirm">Conferma</button>
+          <button id="confirm-changes" class="btn-toggle btn-confirm">
+            Conferma
+          </button>
         </div>
       </div>
     </div>
 
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
   </body>
 </html>
