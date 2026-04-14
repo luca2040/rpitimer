@@ -13,6 +13,9 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='resources/style.css') }}"
     />
+    <script>
+      const TRANSLATIONS = {{ locale | tojson | safe }};
+    </script>
   </head>
   <body>
     <div class="container">
@@ -20,17 +23,17 @@
         <h1>Gestione Timer</h1>
       </div>
       <div class="group" id="timers-box-group">
-        <!-- Dynamically added boxes -->
+        <!-- dynamically added stuff here -->
       </div>
     </div>
 
-    <!-- Modify window -->
-    <div id="edit-modal" class="modal">
+    <!-- edit window -->
+    <div id="edit-window" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span id="close-edit" class="close">&times;</span>
         <h2>Modifica Tempi</h2>
         <div id="time-list">
-          <!-- Added dynamically -->
+          <!-- same dynamically -->
         </div>
         <div class="modal-controls">
           <button id="add-time" class="btn-edit">Aggiungi Tempo</button>

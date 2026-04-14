@@ -1,0 +1,12 @@
+{
+  "time_field_placeholder_start": "Inizio",
+  "time_field_placeholder_end": "Fine",
+  "time_start_label": "Inizio:",
+  "time_end_label": "Fine:",
+  "remove_button": "Rimuovi",
+  "edit_times": "Modifica tempi",
+  "always_on": "Sempre acceso",
+  "always_off": "Sempre spento",
+  "error_updating_button_state": "Errore durante l'aggiornamento impostazione.",
+  "error_select_time_per_each": "Selezionare un orario per ogni tempo."
+}

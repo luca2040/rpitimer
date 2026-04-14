@@ -2,6 +2,7 @@ from .config import app_config
 from .parameters import (HardwareDevice, TimerDevice, TimerUISeparator,
                          parameters)
 from .timers import app_timers
+from .translations import translations
 
 __all__ = [
     "parameters",
@@ -10,4 +11,5 @@ __all__ = [
     "TimerDevice",
     "TimerUISeparator",
     "HardwareDevice",
+    "translations",
 ]

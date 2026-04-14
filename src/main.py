@@ -8,7 +8,7 @@ import werkzeug.exceptions
 from flask import Flask, jsonify, redirect, render_template, request
 
 from app import (HardwareDevice, TimerDevice, TimerUISeparator, app_config,
-                 app_timers, parameters)
+                 app_timers, parameters, translations)
 
 app = Flask(__name__)
 
@@ -25,7 +25,7 @@ def site_root():
 
 @app.route("/timer-settings")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", locale=translations.get(app_config.locale))
 
 
 @app.route("/config/timers", methods=["GET"])
@@ -169,13 +169,16 @@ def set_timer_times():
 if __name__ == "__main__":
     main_folder: Path = pathlib.Path(__file__).parent.resolve()
     app_config.load(main_folder)
+    translations.load(app_config)
     parameters.load(app_config)
     app_timers.init(parameters)
+
+    parameters.on_update = app_timers.force_update
 
     print("loaded application")
 
     app_timers.start()
     app.run(host=app_config.app_host)
-    app_timers.end()  # close everything if server crashes
+    app_timers.end()
 
     print("application closed")

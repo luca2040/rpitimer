@@ -1,7 +1,7 @@
 import json
 import threading
 from threading import Lock
-from typing import Literal, NamedTuple
+from typing import Callable, Literal, NamedTuple
 
 from .config import AppConfig
 from .hw import HardwarePin
@@ -35,6 +35,7 @@ class Parameters:
 
     def load(self, app_cfg: AppConfig) -> None:
         self.app_cfg: AppConfig = app_cfg
+        self.on_update: Callable | None = None
 
         # devices parsing
 
@@ -148,6 +149,9 @@ class Parameters:
             self.settings_synced = False
 
             self.write_settings_file()
+
+        if callable(self.on_update):
+            self.on_update()
 
 
 parameters: Parameters = Parameters()

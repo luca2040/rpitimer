@@ -1,10 +1,9 @@
 import threading
-import time
 from datetime import datetime
+from threading import Event
 from typing import Literal
 
 from .config import AppConfig
-from .hw import HardwarePin
 from .parameters import Parameters, TimerDevice, TimerUISeparator
 
 
@@ -14,17 +13,22 @@ class Timers:
         self.params: Parameters = parameters
         self.app_cfg: AppConfig = parameters.app_cfg
 
-        self.active = False
+        self.active: Event = threading.Event()
+        self.update_flag: Event = threading.Event()
+
+        self.active.clear()
+        self.update_flag.clear()
 
     def timers_main(self) -> None:
-        while self.active:
+        while self.active.is_set():
             try:
                 self.timers_cycle()
 
             except Exception as e:
                 print(str(e))
 
-            time.sleep(self.app_cfg.cycle_delay)
+            self.update_flag.wait(timeout=self.app_cfg.cycle_delay)
+            self.update_flag.clear()
 
     def timers_cycle(self):
         timers: list[TimerDevice | TimerUISeparator] = self.params.timers
@@ -72,14 +76,18 @@ class Timers:
 
             timer_idx += 1
 
+    def force_update(self) -> None:
+        self.update_flag.set()
+
     def start(self) -> None:
-        self.active = True
+        self.active.set()
 
         self.timer_thread = threading.Thread(target=self.timers_main)
         self.timer_thread.start()
 
     def end(self) -> None:
-        self.active = False
+        self.active.clear()
+        self.update_flag.set()
 
         self.timer_thread.join()
 

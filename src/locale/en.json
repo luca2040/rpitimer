@@ -1,0 +1,12 @@
+{
+  "time_field_placeholder_start": "Start",
+  "time_field_placeholder_end": "End",
+  "time_start_label": "Start:",
+  "time_end_label": "End:",
+  "remove_button": "Remove",
+  "edit_times": "Edit times",
+  "always_on": "Always on",
+  "always_off": "Always off",
+  "error_updating_button_state": "Error updating settings.",
+  "error_select_time_per_each": "Select a time per each period."
+}
