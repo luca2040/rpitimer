@@ -103,6 +103,10 @@ body {
     color: var(--light_green_color);
 }
 
+.modal-content h2 {
+    margin-top: 0;
+}
+
 .timers {
     display: flex;
     flex-direction: column;
@@ -111,28 +115,35 @@ body {
 }
 
 .timer {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
-    background-color: #2e2e2e;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* font-size: 14px; */
 }
 
 .timer-label {
     font-weight: bold;
     color: var(--light_green_color);
+    opacity: 0.6;
+    /* font-size: 12px; */
 }
 
 .timer-time {
     color: #e0e0e0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .separator {
     color: #e0e0e0;
     font-weight: bold;
+    opacity: 0.4;
+    margin: 0 4px;
 }
 
 .controls {
@@ -235,6 +246,14 @@ body {
     overflow-y: auto;
 }
 
+@media (max-width: 600px) {
+    .modal-content {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -250,7 +269,7 @@ body {
 }
 
 #time-list {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .time-slot {
