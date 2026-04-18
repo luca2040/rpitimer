@@ -1,3 +1,7 @@
+/*
+this file is a complete mess but since this is css i dont care enough to refactor it
+*/
+
 * {
     --light_green_color: #71ad00;
 }
@@ -16,18 +20,35 @@ body {
 }
 
 .header {
-    background-color: #0e0e0e;
-    padding: 10px;
-    width: 100vw;
+    padding: 0;
+    width: 100%;
     text-align: center;
-    border-bottom: 1px solid #333;
+    border: transparent;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-bubble {
+    margin: 10px;
+    padding: 10px;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+    max-width: 800px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .header h1 {
+    font-size: x-large;
     margin: 0;
     color: var(--light_green_color);
 }
@@ -64,7 +85,7 @@ body {
 
 .separator-box {
     background-color: var(--light_green_color);
-    border-radius: 8px;
+    border-radius: 2px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -72,7 +93,7 @@ body {
     max-width: 800px;
     margin: 0 auto;
     box-sizing: border-box;
-    height: 15px;
+    height: 5px;
     overflow: hidden;
 }
 

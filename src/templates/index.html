@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestione Timer</title>
+    <title>{{ locale["title"] }}</title>
     <link
       rel="icon"
       href="{{ url_for('static', filename='resources/favicon.ico') }}"
@@ -20,7 +20,9 @@
   <body>
     <div class="container">
       <div class="header">
-        <h1>Gestione Timer</h1>
+        <div class="header-bubble">
+          <h1>{{ locale["title"] }}</h1>
+        </div>
       </div>
       <div class="group" id="timers-box-group">
         <!-- dynamically added stuff here -->
@@ -31,14 +33,16 @@
     <div id="edit-window" class="modal">
       <div class="modal-content">
         <span id="close-edit" class="close">&times;</span>
-        <h2>Modifica Tempi</h2>
+        <h2>{{ locale["edit_times"] }}</h2>
         <div id="time-list">
           <!-- same dynamically -->
         </div>
         <div class="modal-controls">
-          <button id="add-time" class="btn-edit">Aggiungi Tempo</button>
+          <button id="add-time" class="btn-edit">
+            {{ locale["add_time"] }}
+          </button>
           <button id="confirm-changes" class="btn-toggle btn-confirm">
-            Conferma
+            {{ locale["confirm"] }}
           </button>
         </div>
       </div>

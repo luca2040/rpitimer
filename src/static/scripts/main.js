@@ -117,6 +117,7 @@ function set_always_button(thiz, opposite, idx, is_on_button) {
                     if ((timer.ALWAYS_ON == expected_on) &&
                         (timer.ALWAYS_OFF == expected_off)) {
                         console.log("update"); // TODO add animation to confirm
+                        // TODO color time in green when currently active
                     }
                     else {
                         alert(TRANSLATIONS.error_updating_button_state);
