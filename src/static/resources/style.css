@@ -276,28 +276,53 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.time-slot input {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    color: #e0e0e0;
-    background-color: #2e2e2e;
-}
-
-.time-slot button {
-    background-color: #ff0000;
+.time-slot input[type="time"] {
     border: none;
-    color: #fff;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
+    outline: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #e0e0e0;
+    font-size: 14px;
 }
 
-.time-slot button:hover {
-    background-color: #cc0000;
+.btn-remove {
+    position: relative;
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #ff6b6b;
+    opacity: 0.6;
+    cursor: pointer;
+    font-size: 13px;
+    padding-left: 14px;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn-remove::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent);
+}
+
+.btn-remove:hover {
+    opacity: 1;
+    transform: scale(1.05);
 }
 
 .modal-controls {
