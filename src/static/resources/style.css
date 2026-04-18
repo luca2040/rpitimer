@@ -35,6 +35,8 @@ body {
 }
 
 .header-bubble {
+    position: relative;
+    overflow: hidden;
     margin: 10px;
     padding: 10px;
     width: calc(100% - 20px);
@@ -45,6 +47,59 @@ body {
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-bubble::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -40%;
+    width: 40%;
+    height: 2px;
+    background: var(--status-color, rgba(255, 255, 0, 0.9));
+    opacity: var(--scan-opacity, 0);
+    animation: none;
+    box-shadow:
+        0 0 6px var(--status-color, rgba(255, 255, 0, 0.6)),
+        0 0 14px var(--status-color, rgba(255, 255, 0, 0.4)),
+        0 0 24px var(--status-color, rgba(255, 255, 0, 0.25));
+    filter: blur(0.3px);
+    transition: opacity 0.2s ease;
+}
+
+.header-bubble[data-state="loading"]::before {
+    opacity: 1;
+    animation: scan 0.35s linear infinite !important;
+}
+
+.header-bubble.deactivated {
+    --status-color: transparent;
+    --scan-opacity: 0;
+}
+
+.header-bubble.loading {
+    --status-color: rgba(255, 255, 0, 0.9);
+    --scan-opacity: 1;
+}
+
+.header-bubble.success {
+    --status-color: rgba(0, 255, 120, 0.9);
+    --scan-opacity: 1;
+}
+
+.header-bubble.error {
+    --status-color: rgba(255, 60, 60, 0.9);
+    --scan-opacity: 1;
+}
+
+@keyframes scan {
+    0% {
+        left: -40%;
+    }
+
+    100% {
+        left: 100%;
+    }
 }
 
 .header h1 {

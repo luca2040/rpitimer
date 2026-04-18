@@ -2,6 +2,8 @@ let ui_elements = {
     edit_window: null,
     close_edit_window: null,
 
+    header_bubble: null,
+
     add_time_button: null,
     confirm_changes_button: null,
     window_time_list: null,
@@ -14,6 +16,8 @@ let ui_elements = {
 document.addEventListener('DOMContentLoaded', () => {
     ui_elements.edit_window = document.getElementById('edit-window');
     ui_elements.close_edit_window = document.getElementById('close-edit');
+
+    ui_elements.header_bubble = document.querySelector(".header-bubble");
 
     ui_elements.add_time_button = document.getElementById('add-time');
     ui_elements.confirm_changes_button = document.getElementById('confirm-changes');
@@ -91,6 +95,22 @@ function add_new_timer(start_time = null, end_time = null) {
     ui_elements.window_time_list.appendChild(new_timer_inner_slot);
 }
 
+function set_header_state(state) {
+    ui_elements.header_bubble.classList.remove("loading", "success", "error", "deactivated");
+    if (state) {
+        ui_elements.header_bubble.classList.add(state);
+    }
+}
+
+function reset_header_animation(reactivate = true) {
+    ui_elements.header_bubble.dataset.state = "";
+    void ui_elements.header_bubble.offsetWidth;
+    if (reactivate)
+        requestAnimationFrame(() => {
+            ui_elements.header_bubble.dataset.state = "loading";
+        });
+}
+
 function set_always_button(thiz, opposite, idx, is_on_button) {
     thiz.onclick = () => {
         let deactivated = false;
@@ -103,6 +123,11 @@ function set_always_button(thiz, opposite, idx, is_on_button) {
         }
 
         (async () => {
+            const anim_duration = 350;
+            const start_time = performance.now();
+            reset_header_animation();
+            set_header_state("loading");
+
             const expected_off = (!is_on_button) && (!deactivated);
             const expected_on = is_on_button && (!deactivated);
 
@@ -113,13 +138,26 @@ function set_always_button(thiz, opposite, idx, is_on_button) {
                 if (!("SETTING_IDX" in timer))
                     continue;
 
+                const wait_time = ((anim_duration - // all this crap to align that fucking animation
+                    (performance.now() - start_time)) % anim_duration +
+                    anim_duration) % anim_duration;
+
                 if (timer.SETTING_IDX == idx) {
                     if ((timer.ALWAYS_ON == expected_on) &&
                         (timer.ALWAYS_OFF == expected_off)) {
-                        console.log("update"); // TODO add animation to confirm
                         // TODO color time in green when currently active
+                        set_header_state("success");
+                        setTimeout(() => {
+                            set_header_state("deactivated");
+                            reset_header_animation(false);
+                        }, wait_time);
                     }
                     else {
+                        set_header_state("error");
+                        setTimeout(() => {
+                            set_header_state("deactivated");
+                            reset_header_animation(false);
+                        }, wait_time + (anim_duration * 6));
                         alert(TRANSLATIONS.error_updating_button_state);
                     }
                     break;
