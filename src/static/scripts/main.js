@@ -245,13 +245,13 @@ async function refresh_entire_timer_data() {
             controls_container_box.appendChild(edit_times_button);
 
             const toggle_buttons_container = document.createElement("div");
-            toggle_buttons_container.className = "toggle-buttons";
+            toggle_buttons_container.className = "toggle-buttons-outside";
 
             const button_toggle_on = document.createElement("button");
             const button_toggle_off = document.createElement("button");
 
-            button_toggle_on.className = "btn-toggle btn-on";
-            button_toggle_off.className = "btn-toggle btn-off";
+            button_toggle_on.className = "btn-toggle-outside btn-on";
+            button_toggle_off.className = "btn-toggle-outside btn-off";
 
             if (timer.ALWAYS_ON)
                 button_toggle_on.classList.add("active");
