@@ -10,7 +10,8 @@ let ui_elements = {
 
     container: null,
 
-    edit_time_list: []
+    edit_time_list: [],
+    timer_elements_dict: {}
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -142,10 +143,12 @@ function set_always_button(thiz, opposite, idx, is_on_button) {
                     (performance.now() - start_time)) % anim_duration +
                     anim_duration) % anim_duration;
 
+                for ([timer_element_idx, timer_element] of ui_elements.timer_elements_dict[timer.SETTING_IDX].entries())
+                    timer_element.className = (timer_element_idx == timer.ACTIVE_TIMER) ? "timer active" : "timer";
+
                 if (timer.SETTING_IDX == idx) {
                     if ((timer.ALWAYS_ON == expected_on) &&
                         (timer.ALWAYS_OFF == expected_off)) {
-                        // TODO color time in green when currently active
                         set_header_state("success");
                         setTimeout(() => {
                             set_header_state("deactivated");
@@ -167,9 +170,9 @@ function set_always_button(thiz, opposite, idx, is_on_button) {
     };
 }
 
-function create_timer_show_box(timer_time) {
+function create_timer_show_box(timer_time, active) {
     const new_timer_box = document.createElement("div");
-    new_timer_box.className = "timer";
+    new_timer_box.className = active ? "timer active" : "timer";
 
     const time_start_label = document.createElement("span");
     const time_start_time = document.createElement("span");
@@ -245,6 +248,7 @@ async function refresh_entire_timer_data() {
     let timers_json_data = await fetch_timer_config();
 
     ui_elements.container.innerHTML = "";
+    ui_elements.timer_elements_dict = {}
 
     for (const timer of timers_json_data) {
         const container_box = document.createElement("div");
@@ -264,9 +268,13 @@ async function refresh_entire_timer_data() {
             const timers_box = document.createElement("div");
             timers_box.className = "timers";
 
-            for (const timer_time of timer.TIMES) {
-                const new_timer_box = create_timer_show_box(timer_time);
+            ui_elements.timer_elements_dict[timer.SETTING_IDX] = []
+
+            for (const [timer_time_idx, timer_time] of timer.TIMES.entries()) {
+                const new_timer_box = create_timer_show_box(timer_time, timer_time_idx == timer.ACTIVE_TIMER);
                 timers_box.appendChild(new_timer_box);
+
+                ui_elements.timer_elements_dict[timer.SETTING_IDX].push(new_timer_box);
             }
 
             container_box.appendChild(timers_box);

@@ -1,6 +1,6 @@
 import threading
 from datetime import datetime
-from threading import Event
+from threading import Event, Lock
 from typing import Literal
 
 from .config import AppConfig
@@ -18,6 +18,9 @@ class Timers:
 
         self.active.clear()
         self.update_flag.clear()
+
+        self.state_lock: Lock = threading.Lock()
+        self.timers_state: dict[int, int | None] = {}
 
     def timers_main(self) -> None:
         while self.active.is_set():
@@ -46,6 +49,8 @@ class Timers:
             current_setting = timers_settings[timer_idx]
             current_pin = timer.hw_device.hw_pin
 
+            current_timer_state: int | None = None
+
             timer_intervals = current_setting["TIMES"]
             assert isinstance(timer_intervals, list)
 
@@ -59,22 +64,31 @@ class Timers:
             elif is_always_on:
                 current_pin.turn_on()
             else:
-                for interval in timer_intervals:
+                for interval_idx, interval in enumerate(timer_intervals):
                     start = datetime.strptime(interval["START"], "%H:%M").time()
                     end = datetime.strptime(interval["END"], "%H:%M").time()
 
                     if end < start:
                         if start <= now or now <= end:
                             current_pin.turn_on()
+                            current_timer_state = interval_idx
                             break
 
                     elif start <= now <= end:
                         current_pin.turn_on()
+                        current_timer_state = interval_idx
                         break
                 else:
                     current_pin.turn_off()
 
+            with self.state_lock:
+                self.timers_state[timer_idx] = current_timer_state
+
             timer_idx += 1
+
+    def get_timers_state(self) -> dict[int, int | None]:
+        with self.state_lock:
+            return self.timers_state.copy()
 
     def force_update(self) -> None:
         self.update_flag.set()

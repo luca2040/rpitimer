@@ -34,12 +34,14 @@ def get_timers():
     timers_settings: list[
         dict[Literal["TIMES", "ALWAYS_ON", "ALWAYS_OFF"], list[dict[str, str]] | bool]
     ] = parameters.get_settings()
+    timers_state = app_timers.get_timers_state()
 
     request_list: list[
         dict[
             Literal["SETTING_IDX"]
             | Literal["NAME"]
             | Literal["TIMES"]
+            | Literal["ACTIVE_TIMER"]
             | Literal["ALWAYS_ON"]
             | Literal["ALWAYS_OFF"],
             int | str | list | bool,
@@ -53,6 +55,9 @@ def get_timers():
             continue
 
         current_setting = timers_settings[timer_idx]
+        current_timers_state = timers_state.get(timer_idx, -1)
+        if current_timers_state == None:
+            current_timers_state = -1
 
         assert isinstance(current_setting["TIMES"], list)
         assert isinstance(current_setting["ALWAYS_ON"], bool)
@@ -63,6 +68,7 @@ def get_timers():
                 "SETTING_IDX": timer_idx,
                 "NAME": timer.name,
                 "TIMES": current_setting["TIMES"],
+                "ACTIVE_TIMER": current_timers_state,
                 "ALWAYS_ON": current_setting["ALWAYS_ON"],
                 "ALWAYS_OFF": current_setting["ALWAYS_OFF"],
             }
