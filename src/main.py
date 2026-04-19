@@ -8,7 +8,7 @@ import werkzeug.exceptions
 from flask import Flask, jsonify, redirect, render_template, request
 
 from app import (HardwareDevice, TimerDevice, TimerUISeparator, app_config,
-                 app_timers, parameters, translations)
+                 app_timers, init_hw, parameters, translations)
 
 app = Flask(__name__)
 
@@ -175,6 +175,7 @@ def set_timer_times():
 if __name__ == "__main__":
     main_folder: Path = pathlib.Path(__file__).parent.resolve()
     app_config.load(main_folder)
+    init_hw()
     translations.load(app_config)
     parameters.load(app_config)
     app_timers.init(parameters)

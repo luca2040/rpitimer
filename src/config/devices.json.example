@@ -1,3 +1,6 @@
+This file contains the pinout configuration of the devices.
+Put whatever you want in the description, its just to remember what the pin does.
+
 [
     {
         "IDX": 0,

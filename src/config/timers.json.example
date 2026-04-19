@@ -1,3 +1,7 @@
+This file contains the layout of the timers in the UI.
+You can add separator lines by adding empty {} elements.
+The name is what is shown on the UI, and the index is the one from the devices file.
+
 [
     {
         "DEVICE_IDX": 0,
